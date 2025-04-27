@@ -1,0 +1,154 @@
+/**
+ * Dark Mode Styles for dao.grow
+ */
+
+/* Dark theme base styles */
+body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Navbar styles */
+body.dark-theme .navbar {
+    background-color: #1e1e1e !important;
+}
+
+body.dark-theme .navbar-dark .navbar-nav .nav-link {
+    color: #b0b0b0;
+}
+
+body.dark-theme .navbar-dark .navbar-nav .nav-link:hover,
+body.dark-theme .navbar-dark .navbar-nav .nav-link.active {
+    color: #ffffff;
+}
+
+/* Card styles */
+body.dark-theme .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-theme .card-header {
+    background-color: #2a2a2a !important;
+    border-color: #333;
+}
+
+/* Table styles */
+body.dark-theme .table {
+    color: #e0e0e0;
+}
+
+body.dark-theme .table-hover tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.075);
+}
+
+body.dark-theme .table td,
+body.dark-theme .table th {
+    border-color: #333;
+}
+
+/* Form controls */
+body.dark-theme .form-control {
+    background-color: #2a2a2a;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+body.dark-theme .form-control:focus {
+    background-color: #333;
+    color: #fff;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+}
+
+/* Buttons */
+body.dark-theme .btn-outline-secondary {
+    color: #b0b0b0;
+    border-color: #666;
+}
+
+body.dark-theme .btn-outline-secondary:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Footer */
+body.dark-theme .footer {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+/* Sensor cards */
+body.dark-theme .sensor-card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-theme .sensor-title {
+    color: #b0b0b0;
+}
+
+body.dark-theme .sensor-value {
+    color: #ffffff;
+}
+
+body.dark-theme .sensor-timestamp {
+    color: #888;
+}
+
+/* Range slider */
+body.dark-theme .range-slider {
+    background-color: #333;
+}
+
+body.dark-theme .range-optimal {
+    background-color: rgba(75, 192, 192, 0.5);
+}
+
+body.dark-theme .value-indicator {
+    background-color: #e0e0e0;
+}
+
+/* Modal */
+body.dark-theme .modal-content {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-theme .modal-header,
+body.dark-theme .modal-footer {
+    border-color: #333;
+}
+
+/* Feature cards */
+body.dark-theme .feature-card {
+    background-color: #1e1e1e;
+}
+
+body.dark-theme .feature-icon {
+    background-color: #2a2a2a;
+    color: #4abe8a;
+}
+
+/* Page headers */
+body.dark-theme .page-header {
+    background-color: #1a1a1a;
+}
+
+/* Misc elements */
+body.dark-theme .dropdown-menu {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-theme .dropdown-item {
+    color: #e0e0e0;
+}
+
+body.dark-theme .dropdown-item:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-theme hr {
+    border-color: #333;
+}
