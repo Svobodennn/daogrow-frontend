@@ -46,8 +46,8 @@ $pageTitle = "Hakkında - dao.grow";
         
         .hero-section {
             position: relative;
-            height: 80vh;
-            min-height: 600px;
+            height: 50vh;
+            min-height: 500px;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -59,7 +59,6 @@ $pageTitle = "Hakkında - dao.grow";
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://placehold.co/1920x1080/1E3A8A/22C55E?text=Futuristic+Hydroponic+Farm');
             background-size: cover;
             background-position: center;
             filter: brightness(0.7);
@@ -111,7 +110,7 @@ $pageTitle = "Hakkında - dao.grow";
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: 2.5rem;
             width: 80px;
             height: 4px;
             background: var(--primary-green);
@@ -226,40 +225,6 @@ $pageTitle = "Hakkında - dao.grow";
             margin-right: auto;
         }
         
-        .connect-wallet-btn {
-            background-color: var(--primary-green);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .connect-wallet-btn:hover {
-            background-color: var(--accent-green);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
-        }
-        
-        .connect-wallet-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .connect-wallet-btn:hover::before {
-            left: 100%;
-        }
-        
         .wallet-icons {
             display: flex;
             justify-content: center;
@@ -343,7 +308,7 @@ $pageTitle = "Hakkında - dao.grow";
                 <h1 class="hero-title">dao.grow: Web3 ile Topraksız Tarımı Yeniden Tanımlıyoruz</h1>
                 <p class="hero-subtitle">Tarımsal bilgiyi NFT'lere dönüştürerek, sürdürülebilir tarımın geleceğini şekillendiriyoruz.</p>
                 <a href="marketplace.php" class="btn connect-wallet-btn btn-lg">
-                    <i class="bi bi-wallet2 me-2"></i>Cüzdanını Bağla
+                    Pazar Yerini Keşfet
                 </a>
             </div>
         </div>
@@ -361,7 +326,7 @@ $pageTitle = "Hakkında - dao.grow";
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
                     <div class="image-container">
-                        <img src="https://placehold.co/800x600/1E3A8A/22C55E?text=Mission+and+Vision" alt="Mission and Vision">
+                        <img src="/img/tarim-gelecegi.png" alt="Mission and Vision">
                         <div class="image-overlay">
                             <h3>Tarımın Geleceğini Şekillendiriyoruz</h3>
                             <p>Blockchain teknolojisi ile tarımsal bilgiyi değerli varlıklara dönüştürüyoruz.</p>
@@ -392,7 +357,7 @@ $pageTitle = "Hakkında - dao.grow";
             </div>
             <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-duration="1000">
                 <div class="image-container">
-                    <img src="https://placehold.co/800x600/1E3A8A/22C55E?text=Soilless+Agriculture" alt="Soilless Agriculture">
+                    <img src="/img/neden-topraksiz.png" alt="Soilless Agriculture">
                     <div class="image-overlay">
                         <h3>Sürdürülebilir ve Akıllı Tarım</h3>
                         <p>Topraksız tarım ile kaynakları koruyarak yüksek kaliteli ürünler elde edin.</p>
@@ -443,7 +408,7 @@ $pageTitle = "Hakkında - dao.grow";
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
                     <div class="image-container">
-                        <img src="https://placehold.co/800x600/1E3A8A/22C55E?text=NFT+Creation" alt="NFT Creation">
+                        <img src="/img/tarim-nft.png" alt="NFT Creation">
                         <div class="image-overlay">
                             <h3>Tarımsal Bilgiyi NFT'ye Dönüştürün</h3>
                             <p>Reçetelerinizi blockchain üzerinde güvenli ve değerli varlıklara dönüştürün.</p>
@@ -472,7 +437,7 @@ $pageTitle = "Hakkında - dao.grow";
                 </div>
                 <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-duration="1000">
                     <div class="image-container">
-                        <img src="https://placehold.co/800x600/1E3A8A/22C55E?text=Marketplace" alt="Marketplace">
+                        <img src="/img/pazaryeri.png" alt="Marketplace">
                         <div class="image-overlay">
                             <h3>Pazar Yerinde Al-Sat</h3>
                             <p>NFT'lerinizi satarak gelir elde edin ve topluluk yönetimine katılın.</p>
@@ -501,7 +466,7 @@ $pageTitle = "Hakkında - dao.grow";
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
                     <div class="image-container">
-                        <img src="https://placehold.co/800x600/1E3A8A/22C55E?text=SUI+Blockchain" alt="SUI Blockchain">
+                        <img src="/img/suiiiii.png" alt="SUI Blockchain">
                         <div class="image-overlay">
                             <h3>SUI Blockchain</h3>
                             <p>Hızlı, düşük maliyetli ve çevre dostu blockchain teknolojisi.</p>

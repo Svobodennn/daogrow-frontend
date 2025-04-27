@@ -164,17 +164,40 @@ async function mintNFT(formData) {
             title: 'Cüzdan Bağlantısı Gerekli',
             text: 'Reçete oluşturmak için önce cüzdanınızı bağlamalısınız.',
             icon: 'warning',
-            confirmButtonText: 'Cüzdan Bağla',
+            confirmButtonText: 'Tamam',
             confirmButtonColor: '#6f42c1',
-            showCancelButton: true,
-            cancelButtonText: 'İptal',
-            cancelButtonColor: '#6c757d'
+            showCancelButton: false,
         }).then((result) => {
             if (result.isConfirmed) {
                 // Focus on the connect wallet button
                 const connectButton = document.getElementById("connectWallet");
+                
                 if (connectButton) {
-                    connectButton.focus();
+                  
+                       // Force scroll to top using multiple methods
+                       // Method 1: Direct window scroll
+                       window.scrollTo(0, 0);
+                       
+                       // Method 2: Scroll the document body
+                       document.body.scrollTop = 0;
+                       
+                       // Method 3: Scroll the document element
+                       document.documentElement.scrollTop = 0;
+                       
+                       // Method 4: Use jQuery if available
+                       if (typeof $ !== 'undefined') {
+                           $('html, body').animate({ scrollTop: 0 }, 0);
+                       }
+                       
+                       // Method 5: Force scroll with a more aggressive approach
+                       setTimeout(() => {
+                           window.scrollTo(0, 0);
+                           document.body.scrollTop = 0;
+                           document.documentElement.scrollTop = 0;
+                           
+                           // Then click the button after ensuring scroll
+                           connectButton.click();
+                       }, 200);
                 }
             }
         });
@@ -193,17 +216,39 @@ async function mintNFT(formData) {
                 title: 'Cüzdan Bağlantısı Gerekli',
                 text: 'Reçete oluşturmak için önce cüzdanınızı bağlamalısınız.',
                 icon: 'warning',
-                confirmButtonText: 'Cüzdan Bağla',
+                confirmButtonText: 'Tamam',
                 confirmButtonColor: '#6f42c1',
-                showCancelButton: true,
-                cancelButtonText: 'İptal',
-                cancelButtonColor: '#6c757d'
+                showCancelButton: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Focus on the connect wallet button
                     const connectButton = document.getElementById("connectWallet");
                     if (connectButton) {
-                        connectButton.focus();
+                      
+                       // Force scroll to top using multiple methods
+                       // Method 1: Direct window scroll
+                       window.scrollTo(0, 0);
+                       
+                       // Method 2: Scroll the document body
+                       document.body.scrollTop = 0;
+                       
+                       // Method 3: Scroll the document element
+                       document.documentElement.scrollTop = 0;
+                       
+                       // Method 4: Use jQuery if available
+                       if (typeof $ !== 'undefined') {
+                           $('html, body').animate({ scrollTop: 0 }, 0);
+                       }
+                       
+                       // Method 5: Force scroll with a more aggressive approach
+                       setTimeout(() => {
+                           window.scrollTo(0, 0);
+                           document.body.scrollTop = 0;
+                           document.documentElement.scrollTop = 0;
+                           
+                           // Then click the button after ensuring scroll
+                           connectButton.click();
+                       }, 200);
                     }
                 }
             });
@@ -526,24 +571,43 @@ document.addEventListener("DOMContentLoaded", () => {
             $('.is-invalid').removeClass('is-invalid');
 
             // --- Basic Info Validation ---
-            const recipeNameInput = document.getElementById('recipeName');
-            const recipePriceInput = document.getElementById('recipePrice');
-            const recipeDescriptionInput = document.getElementById('recipeDescription');
+            const recipeNameInput = document.getElementById('name');
+            const recipePriceInput = document.getElementById('price');
+            const recipeDescriptionInput = document.getElementById('description');
+            
+            console.log("Basic info inputs:", {
+                name: recipeNameInput,
+                price: recipePriceInput,
+                description: recipeDescriptionInput
+            });
 
-            if (!recipeNameInput.value.trim()) {
+            if (!recipeNameInput || !recipeNameInput.value.trim()) {
+                console.log("Name validation failed");
                 valid = false;
-                recipeNameInput.classList.add('is-invalid');
+                if (recipeNameInput) recipeNameInput.classList.add('is-invalid');
                 if (!firstInvalid) firstInvalid = recipeNameInput;
             }
-            const priceValue = parseFloat(recipePriceInput.value);
-            if (isNaN(priceValue) || priceValue < 0) {
-                 valid = false;
-                 recipePriceInput.classList.add('is-invalid');
-                 if (!firstInvalid) firstInvalid = recipePriceInput;
-            }
-            if (!recipeDescriptionInput.value.trim()) {
+            
+            if (!recipePriceInput) {
+                console.log("Price input not found");
                 valid = false;
-                recipeDescriptionInput.classList.add('is-invalid');
+                if (!firstInvalid) firstInvalid = document.querySelector('label[for="price"]');
+            } else {
+                const priceValue = parseFloat(recipePriceInput.value);
+                console.log("Price value:", priceValue);
+                
+                if (isNaN(priceValue) || priceValue < 0) {
+                    console.log("Price validation failed");
+                    valid = false;
+                    recipePriceInput.classList.add('is-invalid');
+                    if (!firstInvalid) firstInvalid = recipePriceInput;
+                }
+            }
+            
+            if (!recipeDescriptionInput || !recipeDescriptionInput.value.trim()) {
+                console.log("Description validation failed");
+                valid = false;
+                if (recipeDescriptionInput) recipeDescriptionInput.classList.add('is-invalid');
                 if (!firstInvalid) firstInvalid = recipeDescriptionInput;
             }
 
@@ -562,14 +626,20 @@ document.addEventListener("DOMContentLoaded", () => {
             stepCards.forEach((stepCard) => {
                 // Validate Range Inputs (Min/Max pairs)
                 stepCard.querySelectorAll('.d-flex.align-items-center.gap-2').forEach(function(pairContainer) {
-                    const inputs = pairContainer.querySelectorAll('input[type="number"]');
-                    if (inputs.length === 2) { // Ensure it's a min/max pair
-                        const minInput = inputs[0];
-                        const maxInput = inputs[1];
+                    // Check for range inputs instead of number inputs
+                    const rangeInputs = pairContainer.querySelectorAll('input[type="range"]');
+                    console.log("Found range inputs:", rangeInputs.length);
+                    
+                    if (rangeInputs.length === 2) { // Ensure it's a min/max pair
+                        const minInput = rangeInputs[0];
+                        const maxInput = rangeInputs[1];
                         const minVal = parseFloat(minInput.value);
                         const maxVal = parseFloat(maxInput.value);
-
+                        
+                        console.log("Min value:", minVal, "Max value:", maxVal);
+                        
                         if (isNaN(minVal) || isNaN(maxVal) || minVal < 0 || maxVal < 0 || minVal > maxVal) {
+                            console.log("Validation failed for range inputs");
                             valid = false;
                             minInput.classList.add("is-invalid");
                             maxInput.classList.add("is-invalid");
@@ -579,10 +649,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 // Validate Growth Duration (single number input)
-                const growthDurationInput = stepCard.querySelector('input[id^="growthDuration"]');
+                const growthDurationInput = stepCard.querySelector('input[id^="daysInput-step-"]');
+                console.log("Growth duration input:", growthDurationInput);
+                
                 if (growthDurationInput) {
                      const durationVal = parseFloat(growthDurationInput.value);
+                     console.log("Duration value:", durationVal);
+                     
                      if (isNaN(durationVal) || durationVal <= 0) { // Duration should be positive
+                         console.log("Validation failed for growth duration");
                          valid = false;
                          growthDurationInput.classList.add("is-invalid");
                          if (!firstInvalid) firstInvalid = growthDurationInput;
@@ -610,9 +685,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // Collect form data if valid
             const formData = {
                 basicInfo: {
-                    name: recipeNameInput.value.trim(),
-                    price: recipePriceInput.value, // Keep as string initially, convert to BigInt later
-                    description: recipeDescriptionInput.value.trim()
+                    name: recipeNameInput ? recipeNameInput.value.trim() : '',
+                    price: recipePriceInput ? recipePriceInput.value : '0', // Keep as string initially, convert to BigInt later
+                    description: recipeDescriptionInput ? recipeDescriptionInput.value.trim() : ''
                 },
                 phases: []
             };
@@ -643,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 phaseData.parameters.lightDuration = getMinMax('light');
 
                 // Get growth duration data
-                const growthDurationInput = stepCard.querySelector('input[id^="growthDuration"]');
+                const growthDurationInput = stepCard.querySelector('input[id^="daysInput-step-"]');
                 phaseData.parameters.growthDuration = growthDurationInput ? parseFloat(growthDurationInput.value) : NaN;
 
                 formData.phases.push(phaseData);
@@ -658,477 +733,3 @@ document.addEventListener("DOMContentLoaded", () => {
     } // End of if(createRecipeForm)
 }); // End of DOMContentLoaded
 
-
-// Function to fetch all NFTs from the contract (Placeholder - needs actual implementation)
-async function listNFTs() {
-    console.log("Attempting to fetch NFTs from contract...");
-    try {
-        // Create a SuiClient instance
-        const client = new SuiClient({ url: 'https://fullnode.testnet.sui.io/' });
-        
-        // Create a transaction block to call the view function
-        const tx = new TransactionBlock();
-        tx.moveCall({
-            target: `${PACKAGE_ID}::daogrow::get_all_nfts`,
-            arguments: [], // No arguments needed for getting all NFTs
-        });
-        
-        // Use devInspectTransactionBlock to call the view function
-        const result = await client.devInspectTransactionBlock({
-            sender: '0x0000000000000000000000000000000000000000000000000000000000000000', // Dummy sender for view calls
-            transactionBlock: tx,
-        });
-
-        if (!result.results || result.error) {
-            console.error("Error calling view function:", result.error || "No results");
-            return [];
-        }
-
-        // Parse the results from the view function
-        const rawReturnData = result.results?.[0]?.returnValues?.[0]?.[0];
-        if (!rawReturnData) {
-            console.log("View function returned no data or unexpected format.");
-            return [];
-        }
-
-        // Process the NFT data
-        const parsedNfts = rawReturnData.map(nftRawData => {
-            return {
-                id: nftRawData.id,
-                title: nftRawData.name,
-                creator: nftRawData.creator_address,
-                price: parseFloat(nftRawData.price) / 1_000_000_000, // Convert MIST to SUI
-                category: nftRawData.category || "default",
-                views: nftRawData.views || 0,
-                likes: nftRawData.likes || 0,
-                image: nftRawData.image || `https://placehold.co/400x300/4abe8a/ffffff?text=${encodeURIComponent(nftRawData.name || "NFT")}`,
-                nftId: nftRawData.id,
-                description: nftRawData.description,
-                recipe: nftRawData.recipe
-            };
-        });
-        
-        console.log("Processed NFT data from view function:", parsedNfts);
-        return parsedNfts;
-    } catch (error) {
-        console.error("Error fetching NFTs from blockchain:", error);
-        // Return empty array on error to prevent breaking the UI
-        return [];
-    }
-}
-
-
-// Function to buy an NFT from the marketplace
-async function buyNFT(nftObjectId, nftPrice) { // Pass price for confirmation and payment
-    if (!connectedWallet) {
-        Swal.fire({
-            title: 'Cüzdan Bağlantısı Gerekli',
-            text: 'NFT satın almak için önce cüzdanınızı bağlamalısınız.',
-            icon: 'warning',
-            confirmButtonText: 'Cüzdan Bağla',
-            confirmButtonColor: '#6f42c1',
-            showCancelButton: true,
-            cancelButtonText: 'İptal',
-            cancelButtonColor: '#6c757d'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const connectButton = document.getElementById("connectWallet");
-                if (connectButton) {
-                    connectButton.focus();
-                    // Optionally scroll to the button
-                    connectButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
-        });
-        return;
-    }
-
-    const accounts = connectedWallet.accounts;
-    if (!accounts || accounts.length === 0) {
-         Swal.fire({
-            title: 'Cüzdan Bağlantısı Gerekli',
-            text: 'NFT satın almak için önce cüzdanınızı bağlamalısınız.',
-            icon: 'warning',
-            confirmButtonText: 'Cüzdan Bağla',
-            confirmButtonColor: '#6f42c1'
-            // No cancel button needed here as it's a prerequisite
-        });
-        return;
-    }
-    const currentAccount = accounts[0];
-
-    // Convert price from SUI string/number to MIST BigInt
-    const priceInMist = BigInt(Math.round(parseFloat(nftPrice) * 1_000_000_000));
-
-    // Confirmation Dialog
-    const confirmation = await Swal.fire({
-        title: 'Satın Almayı Onayla',
-        text: `Bu NFT'yi ${nftPrice} SUI karşılığında satın almak istediğinizden emin misiniz?`,
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonText: 'Evet, Satın Al',
-        cancelButtonText: 'İptal',
-        confirmButtonColor: '#4abe8a',
-        cancelButtonColor: '#6c757d'
-    });
-
-    if (!confirmation.isConfirmed) {
-        return; // User cancelled
-    }
-
-
-    try {
-        console.log("Account details:", {
-            address: currentAccount.address,
-            chains: currentAccount.chains,
-            features: currentAccount.features,
-            label: currentAccount.label
-        });
-
-        // Show loading indicator
-        Swal.fire({
-            title: 'İşlem Yapılıyor',
-            text: 'NFT satın alma işlemi başlatılıyor...',
-            icon: 'info',
-            allowOutsideClick: false,
-            showConfirmButton: false,
-            willOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        // Create a transaction block to buy the NFT
-        const tx = new TransactionBlock();
-
-         // Split the exact coin amount needed for the purchase
-         // tx.gas is the default SUI payment object for gas.
-         // We need to provide the coin object for the NFT price.
-         const [paymentCoin] = tx.splitCoins(tx.gas, [tx.pure(priceInMist)]);
-
-        // Call the buy function in your contract
-        // Ensure the arguments match your contract's function signature
-        tx.moveCall({
-            target: `${PACKAGE_ID}::daogrow::buy_nft`, // Adjust module/function name if needed
-            arguments: [
-                tx.object(TREASURY_ID), // Assuming treasury object is needed
-                tx.object(nftObjectId), // The NFT Object ID
-                paymentCoin          // The coin object for payment
-            ],
-            // typeArguments: [...] // Add if your function uses generics
-        });
-
-        console.log("Executing buy transaction for NFT:", nftObjectId, "with price:", priceInMist.toString());
-
-        // Try different feature names for transaction signing
-        const signAndExecuteFeature =
-            connectedWallet.features["sui:signAndExecuteTransactionBlock"] ||
-            connectedWallet.features["standard:signAndExecuteTransactionBlock"] ||
-            connectedWallet.features["signAndExecuteTransactionBlock"];
-
-        if (!signAndExecuteFeature) {
-            throw new Error("No transaction signing feature found in wallet");
-        }
-
-        const result = await signAndExecuteFeature.signAndExecuteTransactionBlock({
-            transactionBlock: tx,
-            chain: CHAIN,
-            account: currentAccount,
-            options: { // Request effects to confirm success
-                showEffects: true,
-                showEvents: true,
-                // showInput: true,
-                // showObjectChanges: true,
-            }
-        });
-
-        console.log("Buy transaction result:", result);
-
-        // Check for successful execution status in effects
-        if (result.effects?.status?.status !== 'success') {
-             throw new Error(`Transaction failed: ${result.effects?.status?.error || 'Unknown error'}`);
-        }
-
-
-        // Show success message
-        Swal.fire({
-            title: 'Satın Alma Başarılı',
-            text: 'NFT başarıyla satın alındı!',
-            icon: 'success',
-            confirmButtonText: 'Tamam',
-            confirmButtonColor: '#4abe8a'
-        }).then(() => {
-            // Refresh the marketplace to show updated ownership/availability
-             // Optional: Re-fetch NFTs instead of full reload for smoother UX
-             console.log("Refreshing marketplace...");
-             initializeMarketplace(); // Re-initialize to fetch and display updated data
-            // location.reload(); // Alternative: Full page reload
-        });
-    } catch (error) {
-        console.error("Buying error:", error);
-
-        // Show error message
-        Swal.fire({
-            title: 'Satın Alma Hatası',
-            text: 'NFT satın alırken bir hata oluştu: ' + error.message,
-            icon: 'error',
-            confirmButtonText: 'Tamam',
-            confirmButtonColor: '#dc3545'
-        });
-    }
-}
-
-
-// Initialize the marketplace functionality
-async function initializeMarketplace() {
-  console.log("Initializing marketplace...");
-  const nftGrid = $('.row.g-4.nft-grid'); // Target the specific grid
-  const paginationContainer = $('#pagination-container');
-  const categoryFilter = $('#category-filter');
-  const sortSelect = $('#sort-select');
-  const searchFilter = $('#search-filter');
-  const filterButton = $('#filter-button');
-  const itemsPerPage = 8; // Items per page
-
-  let allNftData = []; // Store all fetched NFTs
-  let filteredData = []; // Store currently filtered/sorted NFTs
-  let currentPage = 1;
-
-  // Show loading indicator
-  nftGrid.html('<div class="col-12 text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Yükleniyor...</span></div><p class="mt-3">NFT\'ler yükleniyor...</p></div>');
-  paginationContainer.empty(); // Clear previous pagination
-
-  try {
-    allNftData = await listNFTs(); // Fetch NFTs using the blockchain function
-    console.log("Fetched NFTs for marketplace:", allNftData);
-
-    if (!Array.isArray(allNftData)) {
-        console.error("listNFTs did not return an array:", allNftData);
-        allNftData = []; // Ensure it's an array
-    }
-
-    filteredData = [...allNftData]; // Start with all data
-
-    // --- Event Listeners for Filtering and Sorting ---
-    categoryFilter.off('change').on('change', function() {
-        applyFiltersAndSort();
-        renderPage(1); // Go back to page 1 after filtering
-    });
-
-    sortSelect.off('change').on('change', function() {
-        applyFiltersAndSort();
-        renderPage(1); // Go back to page 1 after sorting
-    });
-    
-    // Add search functionality
-    searchFilter.off('input').on('input', function() {
-        applyFiltersAndSort();
-        renderPage(1); // Go back to page 1 after searching
-    });
-    
-    // Add filter button functionality
-    filterButton.off('click').on('click', function() {
-        applyFiltersAndSort();
-        renderPage(1); // Go back to page 1 after filtering
-    });
-
-    // --- Initial Render ---
-     if (filteredData.length === 0) {
-      nftGrid.html('<div class="col-12 text-center py-5"><i class="bi bi-emoji-frown fs-1 text-muted"></i><p class="mt-3 lead">Pazaryerinde henüz NFT bulunmuyor.</p><a href="create-recipe.php" class="btn btn-primary">İlk Reçeteni Oluştur</a></div>');
-      paginationContainer.empty();
-    } else {
-        applyFiltersAndSort(); // Apply default sort/filter if any
-        renderPage(currentPage); // Render the first page initially
-    }
-
-  } catch (error) {
-      console.error("Error initializing marketplace:", error);
-      nftGrid.html('<div class="col-12 text-center py-5"><i class="bi bi-exclamation-triangle-fill fs-1 text-danger"></i><p class="mt-3 lead text-danger">NFT\'ler yüklenirken bir hata oluştu.</p><p>Lütfen daha sonra tekrar deneyin.</p></div>');
-      paginationContainer.empty();
-  }
-
-  function applyFiltersAndSort() {
-      const selectedCategory = categoryFilter.val();
-      const selectedSort = sortSelect.val();
-      const searchTerm = searchFilter.val().toLowerCase();
-
-      // Apply Category Filter
-      if (selectedCategory === 'all') {
-          filteredData = [...allNftData];
-      } else {
-          filteredData = allNftData.filter(item => item.category === selectedCategory);
-      }
-      
-      // Apply Search Filter
-      if (searchTerm) {
-          filteredData = filteredData.filter(item => 
-              item.title.toLowerCase().includes(searchTerm) || 
-              item.description.toLowerCase().includes(searchTerm) ||
-              item.creator.toLowerCase().includes(searchTerm)
-          );
-      }
-
-      // Apply Sorting
-      switch (selectedSort) {
-          case 'price-asc':
-              filteredData.sort((a, b) => a.price - b.price);
-              break;
-          case 'price-desc':
-              filteredData.sort((a, b) => b.price - a.price);
-              break;
-          case 'name-asc': // Sort by title (name) A-Z
-              filteredData.sort((a, b) => a.title.localeCompare(b.title));
-              break;
-          case 'name-desc': // Sort by title (name) Z-A
-               filteredData.sort((a, b) => b.title.localeCompare(a.title));
-              break;
-          // Add more cases if needed (e.g., date created - requires blockchain data)
-          case 'popular': // Example: sort by views (descending)
-          default:
-              // Default sort (e.g., by views or keep fetched order)
-              filteredData.sort((a, b) => (b.views || 0) - (a.views || 0)); // Fallback to 0 if views undefined
-              break;
-      }
-      console.log("Filtered and sorted data:", filteredData);
-  }
-
-
-  function renderPage(page) {
-      currentPage = page;
-      nftGrid.empty(); // Clear previous items
-
-      const totalItems = filteredData.length;
-      const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-      if (totalItems === 0) {
-          // Show message based on whether filtering is active
-          const selectedCategory = categoryFilter.val();
-          if (selectedCategory !== 'all') {
-               nftGrid.html(`<div class="col-12 text-center py-5"><i class="bi bi-search fs-1 text-muted"></i><p class="mt-3 lead">'${selectedCategory}' kategorisinde eşleşen NFT bulunamadı.</p></div>`);
-          } else {
-              nftGrid.html('<div class="col-12 text-center py-5"><i class="bi bi-emoji-frown fs-1 text-muted"></i><p class="mt-3 lead">Pazaryerinde henüz NFT bulunmuyor.</p><a href="create-recipe.php" class="btn btn-primary">İlk Reçeteni Oluştur</a></div>');
-          }
-          renderPagination(totalPages); // Still render pagination (likely disabled)
-          return;
-      }
-
-
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const itemsToDisplay = filteredData.slice(start, end);
-
-      itemsToDisplay.forEach(item => {
-           // Use default image if item.image is missing or invalid
-          const imageUrl = item.image && item.image.startsWith('http') ? item.image : `https://placehold.co/400x300/cccccc/ffffff?text=Reçete`;
-          const nftCard = `
-              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                  <div class="card nft-card h-100 shadow-sm">
-                      <img src="${imageUrl}" class="card-img-top nft-image" alt="${item.title}">
-                      <div class="card-body d-flex flex-column">
-                          <h5 class="card-title text-truncate" title="${item.title}">${item.title}</h5>
-                          <p class="card-text text-muted mb-2 text-truncate" title="Oluşturan: ${item.creator}">
-                            <small>Oluşturan: ${item.creator.substring(0, 6)}...${item.creator.substring(item.creator.length - 4)}</small>
-                          </p>
-                           <p class="card-text text-truncate mb-3" title="${item.description}">
-                              ${item.description || 'Açıklama yok.'}
-                          </p>
-                          <div class="mt-auto">
-                              <div class="d-flex justify-content-between align-items-center mb-2">
-                                  <span class="fw-bold text-primary fs-5">${item.price.toFixed(2)} SUI</span>
-                                  <span class="text-muted"><i class="bi bi-eye-fill me-1"></i>${item.views}</span>
-                              </div>
-                              <button class="btn btn-success w-100 btn-buy-nft" data-nft-id="${item.nftId}" data-nft-price="${item.price}">
-                                <i class="bi bi-cart-plus-fill me-1"></i> Satın Al
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          `;
-          nftGrid.append(nftCard);
-      });
-
-      // Add event listeners to the new "Buy" buttons
-      $('.btn-buy-nft').off('click').on('click', function() {
-          const nftId = $(this).data('nft-id');
-          const nftPrice = $(this).data('nft-price');
-          console.log(`Buy button clicked for NFT ID: ${nftId}, Price: ${nftPrice}`);
-          buyNFT(nftId, nftPrice); // Call the buy function
-      });
-
-
-      renderPagination(totalPages);
-  }
-
-  function renderPagination(totalPages) {
-      paginationContainer.empty();
-      if (totalPages <= 1) return; // No pagination needed for 0 or 1 page
-
-      const ul = $('<ul class="pagination justify-content-center"></ul>');
-
-      // Previous Button
-      ul.append(`
-          <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-              <a class="page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-              </a>
-          </li>
-      `);
-
-      // Page Number Buttons (simplified for example)
-      // You might want a more complex logic for many pages (e.g., showing first/last and ellipsis)
-      const maxPagesToShow = 5;
-      let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-      let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
-      // Adjust startPage if endPage reaches the limit first
-       startPage = Math.max(1, endPage - maxPagesToShow + 1);
-
-
-      if (startPage > 1) {
-          ul.append(`<li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>`);
-          if (startPage > 2) {
-             ul.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-          }
-      }
-
-
-      for (let i = startPage; i <= endPage; i++) {
-          ul.append(`
-              <li class="page-item ${i === currentPage ? 'active' : ''}">
-                  <a class="page-link" href="#" data-page="${i}">${i}</a>
-              </li>
-          `);
-      }
-
-       if (endPage < totalPages) {
-            if (endPage < totalPages - 1) {
-                ul.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-            }
-            ul.append(`<li class="page-item"><a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a></li>`);
-        }
-
-      // Next Button
-      ul.append(`
-          <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-              <a class="page-link" href="#" data-page="${currentPage + 1}" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-              </a>
-          </li>
-      `);
-
-      paginationContainer.append(ul);
-
-      // Add click listener for pagination links
-      paginationContainer.find('.page-link').on('click', function(e) {
-          e.preventDefault();
-          const page = $(this).data('page');
-          if (page && page !== currentPage) {
-              renderPage(page);
-               // Scroll to the top of the grid after changing page
-                $('html, body').animate({
-                    scrollTop: nftGrid.offset().top - 80 // Adjust offset as needed (e.g., for fixed navbar)
-                }, 300);
-          }
-      });
-  }
-} // End of initializeMarketplace
